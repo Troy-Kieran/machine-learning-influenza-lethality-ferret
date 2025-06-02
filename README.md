@@ -17,6 +17,10 @@ Kieran TJ, Sun X, Creager HM, Tumpey TM, Maines TR, Belser JA. An aggregated dat
 Kieran TJ, Sun X, Maines TR, Beauchemin CAA, Belser JA. Exploring associations between viral titer measurements and disease outcomes in ferrets inoculated with 125 contemporary influenza A viruses. J Virol 98:e01661-23. (2024). (PMID 38240592)
 ([https://doi.org/10.1128/jvi.01661-23](https://doi.org/10.1128/jvi.01661-23))
 
+## Scripts
+lethality_TJK.R script is the machine learning code for lethality analysis.
+morbidity_TJK.R script is the machine learning code for morbidity analysis.
+
 ## Note
 R script uses predicted sialic acid binding preference (RBS) and predicted polymerase activity (PBS) markers (based on molecular sequence), along with selected HA and PB2 gene markers, that are not included in the CSV file from Sci Data, but may be cross-referenced as reported in Kieran et al (PMID 38240592).
 
