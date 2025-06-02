@@ -1,0 +1,15 @@
+Classification,Type,Test,Outcome,wt_loss,temp_5,AUC_6,Bn,BnOB,Lg,NT
+Lethality,Base,1,lethal,wt_loss,temp_5,AUC_6,,,,
+Lethality,Bn,2,lethal,wt_loss,temp_5,AUC_6,Bn,,,
+Lethality,BnOB,3,lethal,wt_loss,temp_5,AUC_6,,BnOB,,
+Lethality,Lg,4,lethal,wt_loss,temp_5,AUC_6,,,Lg,
+Lethality,NT,5,lethal,wt_loss,temp_5,AUC_6,,,,NT
+Lethality,All,6,lethal,wt_loss,temp_5,AUC_6,Bn,BnOB,Lg,NT
+Lethality,Tissue,7,lethal,,,,Bn,BnOB,Lg,NT
+Morbidity,Base,1,wt_loss_high,wt_loss,temp_5,AUC_6,,,,
+Morbidity,Bn,2,wt_loss_high,wt_loss,temp_5,AUC_6,Bn,,,
+Morbidity,BnOB,3,wt_loss_high,wt_loss,temp_5,AUC_6,,BnOB,,
+Morbidity,Lg,4,wt_loss_high,wt_loss,temp_5,AUC_6,,,Lg,
+Morbidity,NT,5,wt_loss_high,wt_loss,temp_5,AUC_6,,,,NT
+Morbidity,All,6,wt_loss_high,wt_loss,temp_5,AUC_6,Bn,BnOB,Lg,NT
+Morbidity,Tissue,7,wt_loss_high,,,,Bn,BnOB,Lg,NT

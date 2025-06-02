@@ -1,0 +1,17 @@
+Catergory,Model,Feature,Importance
+Numeric,M-base,AUC_6,100
+Numeric,M-base,temp_5,61.8863
+Factor,M-base,MBAA_no,49.3259
+Factor,M-base,MBAA_yes,32.3428
+Numeric,M-All,BnOB,100
+Numeric,M-All,Lg,21.48
+Numeric,M-All,temp_5,18.356
+Numeric,M-All,AUC_6,9.583
+Numeric,M-All,NT,9.392
+Factor,M-All,MBAA_yes,2.236
+Numeric,M-Tissue,BnOB,100
+Numeric,M-Tissue,Lg,42.3717
+Numeric,M-Tissue,NT,34.1032
+Numeric,M-Tissue,Bn,12.2056
+Factor,M-Tissue,MBAA_no,2.8129
+Factor,M-Tissue,MBAA_yes,1.8946
