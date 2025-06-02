@@ -8,18 +8,24 @@
 ########################################################################################
 ### Load packages
 library(tidyverse)
-library(tidylog) ## detailed log of dplyr/tidyr functions
+library(tidylog)
 library(caret)
 library(gbm)
 
 ########################################################################################
-### set working directory. Should be defaulted to it if opening the file from its location
-setwd("//cdc.gov/adp/FCID_DVRD_2_FLU/PATHOGENESIS TEAM/data science program/R_project2/lethality")
-
-########################################################################################
 ### Import Data
-fullData <- read.csv("../inputs/fullData_clean_2024-01-17.csv", 
-                     header = TRUE, check.names = FALSE)
+
+## replace file.csv with name of file
+
+## download data
+# Pathogenesis Laboratory Team, Influenza Division, CDC. 
+# An aggregated dataset of serially collected influenza A virus morbidity and titer measurements from virus-infected ferrets.  
+# https://data.cdc.gov/National-Center-for-Immunization-and-Respiratory-D/An-aggregated-dataset-of-serially-collected-influe/cr56-k9wj/about_data
+# and
+# An aggregated dataset of day 3 post-inoculation viral titer measurments from influenza A virus-infected ferret tissues.
+# https://data.cdc.gov/National-Center-for-Immunization-and-Respiratory-D/An-aggregated-dataset-of-day-3-post-inoculation-vi/d9u6-mdu6/about_data
+#
+# fullData <- read.csv("file1.csv", header = TRUE, check.names = FALSE)
 
 ########################################################################################
 
@@ -860,241 +866,6 @@ SelectedImportance_M_fac_plot <-
 (SelectedImportance_L_num_plot | SelectedImportance_L_fac_plot) / 
   (SelectedImportance_M_num_plot | SelectedImportance_M_fac_plot) + 
   patchwork::plot_annotation(tag_levels = 'A')
-
-########################################################################################
-
-
-
-
-
-########################################################################################
-########################################################################################
-
-### Code below is testing/exploratory code, not officially used of analysis
-
-########################################################################################
-########################################################################################
-
-## quantile regression
-
-library(sjPlot)
-library(quantreg)
-
-test <- fullData %>%
-  filter(!is.na(lethal)) %>%
-  select(lethal, Bn_avg, BnOB_avg, wt_loss_avg, temp_5) %>%
-  drop_na()
-
-view_df(test, show.string.values = TRUE, show.prc = TRUE, 
-        show.labels = FALSE, show.id = FALSE)
-
-lm <- lm(factor(lethal) ~ Bn_avg + BnOB_avg + wt_loss_avg + temp_5,
-         data = test)
-
-qm50 <- rq(factor(lethal) ~ Bn_avg + BnOB_avg + wt_loss_avg + temp_5, 
-           data = test, tau = 0.50)
-qm60 <- rq(factor(lethal) ~ Bn_avg + BnOB_avg + wt_loss_avg + temp_5, 
-           data = test, tau = 0.60)
-qm70 <- rq(factor(lethal) ~ Bn_avg + BnOB_avg + wt_loss_avg + temp_5, 
-           data = test, tau = 0.70)
-qm75 <- rq(factor(lethal) ~ Bn_avg + BnOB_avg + wt_loss_avg + temp_5, 
-           data = test, tau = 0.75)
-qm80 <- rq(factor(lethal) ~ Bn_avg + BnOB_avg + wt_loss_avg + temp_5, 
-           data = test, tau = 0.80)
-qm90 <- rq(factor(lethal) ~ Bn_avg + BnOB_avg + wt_loss_avg + temp_5, 
-           data = test, tau = 0.90)
-
-plot_models(lm, qm50, qm60, qm70, qm75, qm80, qm90, show.values = TRUE, 
-            m.labels = c('lm', '50', '60', '70', '75', '80', '90'),
-            p.adjust = TRUE, colors = 'viridis')
-
-plot_model(qm75, type = "pred", terms = "BnOB_avg")
-plot_model(qm75, type = "pred", terms = "Bn_avg")
-plot_model(qm75, type = "pred", terms = "wt_loss_avg")
-
-plot_model(lm, type = "pred", terms = c('temp_5', 'BnOB_avg'))
-
-###
-
-quant_reg_25 <- rq(temp_5 ~ wt_loss_avg, data = test, tau = 0.25)
-quant_reg_50 <- rq(temp_5 ~ wt_loss_avg, data = test, tau = 0.50)
-quant_reg_75 <- rq(temp_5 ~ wt_loss_avg, data = test, tau = 0.75)
-lm <- lm(temp_5 ~ wt_loss_avg, data = test)
-robustlm <- MASS::rlm(temp_5 ~ wt_loss_avg, data = test)
-
-ggplot(test, aes(x = wt_loss_avg, y = temp_5)) +
-  geom_point(aes(color = lethal)) +
-  geom_abline(intercept = coef(quant_reg_25)["(Intercept)"],
-              slope = coef(quant_reg_25)["wt_loss_avg"],
-              col = "#440154FF", linetype = "solid", linewidth = 1.5) +
-  geom_abline(intercept = coef(quant_reg_50)["(Intercept)"],
-              slope = coef(quant_reg_50)["wt_loss_avg"],
-              col = "#365C8DFF", linetype = "solid", linewidth = 1.5) +
-  geom_abline(intercept = coef(quant_reg_75)["(Intercept)"],
-              slope = coef(quant_reg_75)["wt_loss_avg"],
-              col = "#1FA187FF", linetype = "solid", linewidth = 1.5) +
-  geom_abline(intercept = coef(lm)["(Intercept)"],
-              slope = coef(lm)["wt_loss_avg"],
-              col = "black", linetype = "dashed", linewidth = 1.5) + 
-  geom_abline(intercept = coef(robustlm)["(Intercept)"],
-              slope = coef(robustlm)["wt_loss_avg"],
-              col = "red", linetype = "dashed", linewidth = 1.5) +
-  #geom_smooth(method = 'lm', se = FALSE)
-  scale_color_viridis_d(end = 0.7) +
-  theme_classic()
-
-
-###
-
-library(easystats)
-
-lm1 <- lm(BnOB_avg ~ factor(lethal) + temp_5,
-          data = test2)
-
-estimate_means(lm1)
-estimate_contrasts(lm1)
-estimate_slopes(lm1)
-estimate_prediction(lm1)
-estimate_expectation(lm1)
-
-lm2 <- lm(BnOB_avg ~ factor(lethal) * temp_5,
-          data = test2)
-
-estimate_means(lm2)
-estimate_contrasts(lm2) #%>% report()
-estimate_slopes(lm2)
-estimate_prediction(lm2)
-estimate_expectation(lm2)
-
-
-pred1 <- estimate_expectation(lm1)
-pred2 <- estimate_expectation(lm2)
-
-ggplot(data = pred1, aes(x = temp_5, y = Predicted)) +
-  geom_point(aes(color = "Model 1"), size = 3) +
-  geom_point(data = pred2, aes(color = "Model 2"), size = 3) +
-  labs(y = "BnOB_avg (predicted)", color = NULL) +
-  scale_color_manual(values = c("Model 1" = "#482878FF", 
-                                "Model 2" = "#35B779FF")) +
-  theme_modern() +
-  facet_wrap(~lethal)
-
-
-plot(estimate_contrasts(lm2), estimate_means(lm2)) +
-  theme_modern()
-
-compare_performance(lm1, lm2)
-
-aov(lm1) %>% summary()
-aov(lm2) %>% summary()
-aov(lm1) %>% report()
-aov(lm2) %>% report()
-
-glm1 <- glm(BnOB_avg ~ lethal,
-          data = test2)
-
-estimate_means(glm1)
-estimate_contrasts(glm1)
-
-estimate_slopes(lm2, trend = "temp_5", at = "lethal")
-plot(estimate_slopes(lm2, trend = "temp_5", at = "lethal"))
-
-check_model(lm1)
-
-
-lm3 <- lm(BnOB_avg ~ factor(lethal) * wt_loss * 
-            temp_5 * peak_inoc * slope13_f,
-          data = test2)
-
-estimate_means(lm3)
-estimate_contrasts(lm3) #%>% report()
-estimate_slopes(lm3)
-estimate_prediction(lm3)
-estimate_expectation(lm3)
-aov(lm3) %>% report()
-
-compare_performance(lm1, lm2, lm3, glm1)
-test_performance(lm1, lm2, lm3, glm1)
-
-
-###
-
-library(fixest)
-
-test3 <- fullData %>%
-  filter(!is.na(lethal)) %>%
-  select(lethal, Bn_avg, BnOB_avg, wt_loss_avg, temp_5,
-         RBS, PBS, Origin) %>%
-  drop_na()
-
-lm <- lm(BnOB_avg ~ factor(lethal) + factor(RBS), 
-          data = test3)
-summary(lm)
-
-model1 <- feols(
-  BnOB_avg ~ factor(lethal) + factor(RBS),
-  data = test3, #cluster = ~ Origin
-  )
-model1
-etable(model1)
-
-###
-
-## estimated marginal means (or medians)
-
-library(emmeans)
-
-test2 <- fullData %>%
-  filter(!is.na(lethal)) %>%
-  select(lethal, Bn_avg, BnOB_avg, wt_loss_avg, temp_5,
-         RBS, PBS, Origin) %>%
-  drop_na()
-
-rq1 <- rq(BnOB_avg ~ factor(lethal), 
-          data = test2, tau = 0.5) %>% emmeans(~ lethal)
-plot(rq1)
-
-lm1 <- lm(BnOB_avg ~ factor(lethal),
-          data = test2) %>% emmeans(pairwise ~ lethal)
-plot(lm1)
-
-
-## compare levels of factor with another use '|'
-lm2 <- lm(BnOB_avg ~ factor(lethal) + factor(RBS), 
-          data = test2) %>% emmeans(pairwise ~ lethal|RBS)
-plot(lm2)
-
-lm3 <- lm(BnOB_avg ~ factor(lethal) + factor(PBS), 
-          data = test2) %>% emmeans(pairwise ~ lethal|PBS)
-plot(lm3)
-
-lm4 <- lm(Bn_avg ~ factor(lethal) + factor(RBS), 
-          data = test2) %>% emmeans(pairwise ~ lethal|RBS)
-plot(lm4)
-
-lm(BnOB_avg ~ factor(Origin), 
-   data = test2) %>% emmeans(pairwise ~ Origin) %>%
-  plot()
-
-###
-
-library(glmulti)
-
-test2 <- fullData %>%
-  filter(!is.na(lethal)) %>%
-  mutate(lethal = as.factor(lethal)) %>%
-  select(lethal, Bn_avg, BnOB_avg, Lg_avg, NT_avg, 
-         wt_loss, temp_5, peak_inoc, slope13_f, slope13_v) %>%
-  drop_na()
-
-
-d_model <- glmulti(lethal ~ Bn_avg + BnOB_avg + Lg_avg + NT_avg + 
-                     wt_loss + temp_5 + peak_inoc + slope13_f + slope13_v,
-                   data = test2, crit = 'aicc', level = 1, method = 'd',
-                   family = binomial, fitfunction = glm, confsetsize = 100)
-
-print(d_model)
-
 
 ########################################################################################
 ########################################################################################
