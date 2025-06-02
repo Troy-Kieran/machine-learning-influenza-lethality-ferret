@@ -8,20 +8,24 @@
 ########################################################################################
 ### Load packages
 library(tidyverse)
-library(tidylog) ## detailed log of dplyr/tidyr functions
+library(tidylog)
 library(caret)
 library(gbm)
 
 ########################################################################################
-### set working directory. Should be defaulted to it if opening the file from its location
-setwd("//cdc.gov/adp/FCID_DVRD_2_FLU/PATHOGENESIS TEAM/data science program/R_project2/lethality")
-
-########################################################################################
 ### Import Data
-fullData <- read.csv("../inputs/fullData_clean_2024-01-17.csv", 
-                     header = TRUE, check.names = FALSE)
-# fullData <- read.csv("../inputs/fullData_clean_2023-11-03.csv", 
-#                      header = TRUE, check.names = FALSE)
+
+## replace file.csv with name of file
+
+## download data
+# Pathogenesis Laboratory Team, Influenza Division, CDC. 
+# An aggregated dataset of serially collected influenza A virus morbidity and titer measurements from virus-infected ferrets.  
+# https://data.cdc.gov/National-Center-for-Immunization-and-Respiratory-D/An-aggregated-dataset-of-serially-collected-influe/cr56-k9wj/about_data
+# and
+# An aggregated dataset of day 3 post-inoculation viral titer measurments from influenza A virus-infected ferret tissues.
+# https://data.cdc.gov/National-Center-for-Immunization-and-Respiratory-D/An-aggregated-dataset-of-day-3-post-inoculation-vi/d9u6-mdu6/about_data
+#
+# fullData <- read.csv("file1.csv", header = TRUE, check.names = FALSE)
 
 ########################################################################################
 
@@ -606,7 +610,6 @@ mcc_func(98, 26, 19, 33)
 mcc_func(79, 37, 15, 40)
 mcc_func(99, 25, 22, 27)
 mcc_func(99, 29, 18, 25)
-
 
 ########################################################################################
 ########################################################################################
