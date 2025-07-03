@@ -8,7 +8,7 @@ This project also includes CSV files for summary data & metrics used to create f
 
 Study makes use of previously published data:
 ## References and Resources
-Kieran TJ, Sun X, Maines TR, Belser JA. Machine learning approaches for influenza A virus risk assessment identifies predictive correlates using ferret model in vivo data. Commun Biol 7, 927 (2024). [https://doi.org/10.1038/s42003-024-06629-0]
+Kieran TJ, Sun X, Maines TR, Belser JA. Machine learning approaches for influenza A virus risk assessment identifies predictive correlates using ferret model in vivo data. Commun Biol 7, 927 (2024). https://doi.org/10.1038/s42003-024-06629-0
 
 https://github.com/CDCgov/machine-learning-influenza-ferret-model/tree/main
 
