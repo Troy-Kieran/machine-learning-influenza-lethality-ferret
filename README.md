@@ -2,7 +2,7 @@
 
 R code used for the machine learning portion of: 
 
-Kieran TJ, Sun X, Maines TR, Belser JA. Predictive models of influenza A virus lethal disease yield insights from ferret respiratory tract and brain tissues. (Accepted June 25, Scientific Reports, 2025). 
+Kieran TJ, Sun X, Maines TR, Belser JA. Predictive models of influenza A virus lethal disease yield insights from ferret respiratory tract and brain tissues. (Accepted June 25: In Press, Scientific Reports, 2025). 
 
 This project also includes CSV files for summary data & metrics used to create figures from the manuscript in the "ResultsSummary_Rinputs" directory. 
 
