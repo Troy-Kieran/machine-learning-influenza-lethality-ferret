@@ -14,7 +14,7 @@ Kieran TJ, Sun X, Creager HM, Tumpey TM, Maines TR, Belser JA. An aggregated dat
 
 CDC. An aggregated dataset of serially collected influenza A virus morbidity and titer measurements from virus-infected ferrets, <https://data.cdc.gov/National-Center-for-Immunization-and-Respiratory-D/An-aggregated-dataset-of-serially-collected-influe/cr56-k9wj/about_data> (2025).
 
-Kieran TJ, Sun X, Tumpey TM, Maines TR, Belser JA. Spatial variation of infectious virus load in aggregated day 3 post-inoculation respiratory tract tissues from influenza A virus-infected ferrets. Under peer review.
+Kieran TJ, Sun X, Tumpey TM, Maines TR, Belser JA. Spatial variation of infectious virus load in aggregated day 3 post-inoculation respiratory tract tissues from influenza A virus-infected ferrets. mSphere 10:e00346-25 (2025). https://doi.org/10.1128/msphere.00346-25
 
 CDC. An aggregated dataset of day 3 post-inoculation viral titer measurements from influenza A virus-infected ferret tissues, <https://data.cdc.gov/National-Center-for-Immunization-and-Respiratory-D/An-aggregated-dataset-of-day-3-post-inoculation-vi/d9u6-mdu6/about_data> (2025).
 
